@@ -40,6 +40,15 @@ class GameOfLifeTest {
         val evolved = gameOfLife.evolve(board)
         assertEquals(evolved, "_XX_")
     }
+
+    @Test
+    fun `five cells - no cells alive on board`() {
+        val gameOfLife = GameOfLife()
+
+        val board = "X_X_"
+        val evolved = gameOfLife.evolve(board)
+        assertEquals(evolved, "____")
+    }
 }
 
 class GameOfLife {
@@ -47,7 +56,7 @@ class GameOfLife {
         var i=0
         var newBoard = ""
         while(i<board.length) {
-            if (i>0 && board[i-1]=='X' && i+1 < board.length && board[i+1]=='X')
+            if (i>0 && board[i-1]=='X' && i+1 < board.length && board[i+1]=='X' && board[i]=='X')
                 newBoard += "X"
             else
             newBoard += "_"
