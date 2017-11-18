@@ -31,16 +31,23 @@ class GameOfLifeTest {
         val evolved = gameOfLife.evolve(board)
         assertEquals(evolved, "_X_")
     }
+
+    @Test
+    fun `four cells - two middle cells alive on board`() {
+        val gameOfLife = GameOfLife()
+
+        val board = "XXXX"
+        val evolved = gameOfLife.evolve(board)
+        assertEquals(evolved, "_XX_")
+    }
 }
 
 class GameOfLife {
     fun evolve(board: String) : String {
-        if ( board == "XXX")
-            return "_X_"
         var i=0
         var newBoard = ""
         while(i<board.length) {
-            if (i>0 && board[i-1]=='X' && i+1 == board.length && board[i+1]=='X')
+            if (i>0 && board[i-1]=='X' && i+1 < board.length && board[i+1]=='X')
                 newBoard += "X"
             else
             newBoard += "_"
