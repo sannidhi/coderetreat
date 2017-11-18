@@ -1,68 +1,25 @@
 package sample
 
-import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import org.junit.Test
 
 class GameOfLifeTest {
 
     @Test
-    fun `same universe does not change`() {
-        val gameOfLife = GameOfLife()
-
-        val board = "__"
-        val evolved = gameOfLife.evolve(board)
-        assertEquals(evolved, board)
+    fun `die - 0 or 1 neighbouring cells alive`() {
+        assertTrue(!staysAlive(0))
+        assertTrue(!staysAlive(1))
     }
 
     @Test
-    fun `single cell - dies`() {
-        val gameOfLife = GameOfLife()
-
-        val board = "_X"
-        val evolved = gameOfLife.evolve(board)
-        assertEquals(evolved, "__")
+    fun `alive - 2 or 3 neighbouring cells alive`() {
+        assertTrue(staysAlive(2))
+        assertTrue(staysAlive(3))
     }
 
-    @Test
-    fun `three cells - one cell alive on board`() {
-        val gameOfLife = GameOfLife()
-
-        val board = "XXX"
-        val evolved = gameOfLife.evolve(board)
-        assertEquals(evolved, "_X_")
-    }
-
-    @Test
-    fun `four cells - two middle cells alive on board`() {
-        val gameOfLife = GameOfLife()
-
-        val board = "XXXX"
-        val evolved = gameOfLife.evolve(board)
-        assertEquals(evolved, "_XX_")
-    }
-
-    @Test
-    fun `five cells - no cells alive on board`() {
-        val gameOfLife = GameOfLife()
-
-        val board = "X_X_"
-        val evolved = gameOfLife.evolve(board)
-        assertEquals(evolved, "____")
+    private fun staysAlive(numberOfNeighbours: Int): Boolean {
+        return numberOfNeighbours > 1
     }
 }
 
-class GameOfLife {
-    fun evolve(board: String) : String {
-        var i=0
-        var newBoard = ""
-        while(i<board.length) {
-            if (i>0 && board[i-1]=='X' && i+1 < board.length && board[i+1]=='X' && board[i]=='X')
-                newBoard += "X"
-            else
-            newBoard += "_"
-            i++
-        }
-        return newBoard
-    }
 
-}
