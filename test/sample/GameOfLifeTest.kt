@@ -37,7 +37,16 @@ class GameOfLife {
     fun evolve(board: String) : String {
         if ( board == "XXX")
             return "_X_"
-        return "__"
+        var i=0
+        var newBoard = ""
+        while(i<board.length) {
+            if (i>0 && board[i-1]=='X' && i+1 == board.length && board[i+1]=='X')
+                newBoard += "X"
+            else
+            newBoard += "_"
+            i++
+        }
+        return newBoard
     }
 
 }
